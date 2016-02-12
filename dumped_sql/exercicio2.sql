@@ -14,6 +14,10 @@ realizados pelo paciente.*/
 /*
 cod_paciente, data_nascimento, cod_seguradora, cod_grupo, quantidade de exames do cliente cidade, paciente diferente de mgá
 pacientes masculinos sexo, código = 1 */
-SELECT paciente.num_paciente, paciente.nome_paciente,paciente.data_nascimento, paciente.cod_seguradora, paciente.cidade, count(requisicao.numero_paciente)
+/*SELECT paciente.num_paciente, paciente.nome_paciente,paciente.data_nascimento, paciente.cod_seguradora, paciente.cidade, count(requisicao.numero_paciente) as Quantidade_exames
 FROM paciente JOIN requisicao on paciente.num_paciente = requisicao.numero_paciente
 WHERE (paciente.cidade <> 'Maringá') and (paciente.sexo = 2);
+otimização*/
+
+SELECT pac.num_paciente, pac.nome_paciente,pac.data_nascimento, pac.cod_seguradora, pac.cidade
+FROM (Select paciente.num_paciente, paciente.nome_paciente,paciente.data_nascimento, paciente.cod_seguradora, paciente.cidade FROM paciente) AS pac
