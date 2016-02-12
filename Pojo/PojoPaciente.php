@@ -16,6 +16,10 @@ class PojoPaciente {
     private $flag_paciente;
     private $nome_paciente;
     
+    function getNum_paciente(){
+         return $this->num_paciente;
+    }
+    
     function getCod_grupo() {
         return $this->cod_grupo;
     }

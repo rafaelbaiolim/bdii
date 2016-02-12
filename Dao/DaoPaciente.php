@@ -1,6 +1,7 @@
 <?php
-require_once APP_PATH . 'Pojo/PojoPaciente.php';
-require_once APP_PATH . 'Db/conection.php';
+
+require_once  $_SERVER['DOCUMENT_ROOT']. '/Pojo/PojoPaciente.php';
+require_once  $_SERVER['DOCUMENT_ROOT']. '/Db/conection.php';
 
 class DaoPaciente {
 
@@ -76,6 +77,101 @@ class DaoPaciente {
  um LOG do mesmo, tente novamente mais tarde.\n";
             echo $e->getCode() . " Mensagem: " . $e->getMessage();
             $this->db->rollback();
+        }
+    }
+
+    
+        public function startUpdate($cidade) {
+
+        try {
+            $paciente = $this->BuscarPorCOD(20);
+            
+           
+            $sql = "UPDATE paciente SET		
+                num_paciente = :num_paciente,
+                cod_grupo = :cod_grupo,
+                cod_seguradora = :cod_seguradora,
+                data_nascimento = :data_nascimento,
+                sexo = :sexo,
+                bairro = :bairro,
+                cep = :cep,
+                cidade = :cidade,
+                uf = :uf, 
+                data_requisicao = :data_requisicao,
+                flag_paciente = :flag_paciente,
+                nome_paciente = :nome_paciente 
+                WHERE num_paciente = :num_paciente 
+               ";
+
+            $p_sql = $this->db->prepare($sql);
+
+            $p_sql->bindValue(":num_paciente", $paciente->getNum_paciente());
+            $p_sql->bindValue(":cod_grupo", $paciente->getCod_grupo());
+            $p_sql->bindValue(":cod_seguradora", $paciente->getCod_seguradora());
+            $p_sql->bindValue(":data_nascimento", $paciente->getData_nascimento());
+            $p_sql->bindValue(":sexo", $paciente->getSexo());
+            $p_sql->bindValue(":bairro", $paciente->getBairro());
+            $p_sql->bindValue(":cep", $paciente->getCep());
+            $p_sql->bindValue(":cidade", $cidade);
+            $p_sql->bindValue(":uf", $paciente->getUf());
+            $p_sql->bindValue(":data_requisicao", $paciente->getData_requisicao());
+            $p_sql->bindValue(":flag_paciente", $paciente->getFlag_paciente());
+            $p_sql->bindValue(":nome_paciente", $paciente->getNome_paciente());
+
+            $p_sql->execute();
+           
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde.\n";
+            echo $e->getCode() . " Mensagem: " . $e->getMessage();
+        }
+    }
+    
+    
+    public function startUpdatePartial($cidade) {
+        try {
+            $paciente = $this->BuscarPorCOD(20);
+            
+           
+            $sql = "UPDATE paciente SET		
+                num_paciente = :num_paciente,
+                cod_grupo = :cod_grupo,
+                cod_seguradora = :cod_seguradora,
+                data_nascimento = :data_nascimento,
+                sexo = :sexo,
+                bairro = :bairro,
+                cep = :cep,
+                cidade = :cidade,
+                uf = :uf, 
+                data_requisicao = :data_requisicao,
+                flag_paciente = :flag_paciente,
+                nome_paciente = :nome_paciente 
+                WHERE num_paciente = :num_paciente 
+               ";
+
+            $p_sql = $this->db->prepare($sql);
+
+            $p_sql->bindValue(":num_paciente", $paciente->getNum_paciente());
+            $p_sql->bindValue(":cod_grupo", $paciente->getCod_grupo());
+            $p_sql->bindValue(":cod_seguradora", $paciente->getCod_seguradora());
+            $p_sql->bindValue(":data_nascimento", $paciente->getData_nascimento());
+            $p_sql->bindValue(":sexo", $paciente->getSexo());
+            $p_sql->bindValue(":bairro", $paciente->getBairro());
+            $p_sql->bindValue(":cep", $paciente->getCep());
+            $p_sql->bindValue(":cidade", $cidade);
+            $p_sql->bindValue(":uf", $paciente->getUf());
+            $p_sql->bindValue(":data_requisicao", $paciente->getData_requisicao());
+            $p_sql->bindValue(":flag_paciente", $paciente->getFlag_paciente());
+            $p_sql->bindValue(":nome_paciente", $paciente->getNome_paciente());
+            
+            //sleep(40);
+            $p_sql->execute();
+            
+           
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde.\n";
+            echo $e->getCode() . " Mensagem: " . $e->getMessage();
         }
     }
 
